@@ -1,16 +1,17 @@
 function weekNumber(date){
-	const daysPassed = numberOfDaysPassed(date);
-	const jan1 = new Date(
-		date.getFullYear(),
-		0, 1
-	);
-	const offset = 8 - jan1.getDay();
-	const weekNO = Math.ceil((daysPassed - offset) / 7);
+    //the first week of the year is defined as the one with the first thursday in the year
+    const thisThursday = new Date(
+        date.getFullYear(),
+        date.getMonth(),
+        date.getDate() - (date.getDay() || 7) + 4
+    );
+	const daysPassed = numberOfDaysPassed(thisThursday);
+	const weekNO = Math.ceil((daysPassed) / 7);
 	return weekNO || 52;
 }
 
 
-//number of days that have passed since jan 1
+//returns the number of days that have passed since jan 1
 function numberOfDaysPassed(until){
 	const year = until.getFullYear();
 	const untilMonth = until.getMonth();
